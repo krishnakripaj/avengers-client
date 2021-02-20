@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Avenger from "./components/avenger";
 
-const firstElement = <h1>Hello World!</h1>;
-
-ReactDOM.render(firstElement, document.getElementById("root"));
+ReactDOM.render(<Avenger />, document.getElementById("root"));
