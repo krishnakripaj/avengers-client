@@ -4,7 +4,18 @@ class Avenger extends Component {
   state = {
     avengerId: 10,
     movies: ["First Avenger", "Infinity War", "Endgame"],
-    likeCount: this.props.likeCount,
+    likeCount: 0,
+  };
+  isAvenger() {
+    return this.state.avengerId > 1000 ? "He is an Avenger" : "Not an avenger";
+  }
+  showMovies() {
+    return this.state.movies.map((movie, index) => (
+      <li key={index}>{movie}</li>
+    ));
+  }
+  likeAvenger = (addCounter) => {
+    this.setState({ likeCount: this.state.likeCount + addCounter });
   };
   render() {
     return (
@@ -30,17 +41,6 @@ class Avenger extends Component {
       </div>
     );
   }
-  isAvenger() {
-    return this.state.avengerId > 1000 ? "He is an Avenger" : "Not an avenger";
-  }
-  showMovies() {
-    return this.state.movies.map((movie, index) => (
-      <li key={index}>{movie}</li>
-    ));
-  }
-  likeAvenger = (addCounter) => {
-    this.setState({ likeCount: this.state.likeCount + addCounter });
-  };
 }
 
 export default Avenger;
