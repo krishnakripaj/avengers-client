@@ -15,7 +15,7 @@ class Avengers extends Component {
         <div className="row">
           {this.state.allAvengers.map((avenger) => (
             <div key={avenger.id} className="col">
-              <Avenger key={avenger.id} />
+              <Avenger key={avenger.id} likeCount={avenger.likeCount}/>
             </div>
           ))}
         </div>
