@@ -1,25 +1,7 @@
 import React, { Component } from "react";
 
 class Avenger extends Component {
-  state = {
-    avengerId: -190,
-    avengerName: "Hulk",
-    movies: ["Movie 1", "Movie 2"],
-    likeCount: 0,
-  };
-  isAvenger() {
-    return this.state.avengerId < 0 ? "Not an avenger" : "Yes, it's an avenger";
-  }
-  showMovies() {
-    if (this.state.movies.length == 0) return <p>No movies available</p>;
-    else
-      return this.state.movies.map((movie, index) => (
-        <li key={index}>{movie}</li>
-      ));
-  }
-  likeAvenger = () => {
-    this.setState({ likeCount: this.state.likeCount + 1 });
-  };
+  state = {};
   render() {
     return (
       <React.Fragment>
@@ -29,12 +11,12 @@ class Avenger extends Component {
             className="card-img-top"
           />
           <div className="card-body">
-            <h5 className="card-title">Avenger Name</h5>
+            <h5 className="card-title">{this.props.avengerName}</h5>
             <p className="card-text">
-              <ul>{this.showMovies()}</ul>
+              <ul>Show the movies here...</ul>
             </p>
-            <button className="btn btn-primary" onClick={this.likeAvenger}>
-              Like - {this.state.likeCount}
+            <button className="btn btn-primary">
+              Like - {this.props.likeCount}
             </button>
           </div>
         </div>
