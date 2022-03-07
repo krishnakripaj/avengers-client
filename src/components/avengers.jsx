@@ -4,11 +4,7 @@ import Avenger from "./avenger";
 
 class Avengers extends Component {
   state = {
-    allAvengers: [
-      { id: 1, likeCount: 10, avengerName: "Avenger 1" },
-      { id: 2, likeCount: 30, avengerName: "Avenger 2" },
-      { id: 3, likeCount: 500, avengerName: "Avenger 3" },
-    ],
+    allAvengers: [],
   };
   render() {
     console.log("Rendering Avengers component ......");
@@ -19,8 +15,9 @@ class Avengers extends Component {
             <div key={avenger.id} className="col">
               <Avenger
                 key={avenger.id}
-                likeCount={avenger.likeCount}
-                avengerName={avenger.avengerName}
+                avenger={avenger}
+                onDelete={() => this.deleteAvenger(avenger.id)}
+                onLike={() => this.likeAvenger(avenger)}
               />
             </div>
           ))}
@@ -28,10 +25,46 @@ class Avengers extends Component {
       </div>
     );
   }
+
+  async likeAvenger(avenger) {
+    try {
+      await axios.put(`http://localhost:5000/api/avengers/${avenger.id}`, {
+        likeCount: avenger.likeCount + 1,
+      });
+      let allAvengers = [...this.state.allAvengers];
+      let index = allAvengers.indexOf(avenger);
+      allAvengers[index] = { ...avenger };
+      allAvengers[index].likeCount++;
+      this.setState({ allAvengers: allAvengers });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async deleteAvenger(avengerId) {
+    let updatedAvengerArray = this.state.allAvengers.filter(
+      (avenger) => avenger.id !== avengerId
+    );
+
+    await axios.delete(`http://localhost:5000/api/avengers/${avengerId}`);
+    this.setState({ allAvengers: updatedAvengerArray });
+  }
+
   async componentDidMount() {
     console.log("Rendering finished. Component is fully mounted");
-    let response = await axios.get("http://localhost:5000/api/avengers");
-    console.log(response);
+    let { data } = await axios.get("http://localhost:5000/api/avengers");
+    // console.log(data);
+    let avengers = data.map((avenger) => {
+      return {
+        id: avenger._id,
+        imgUrl: avenger.imgUrl,
+        birthName: avenger.birthName,
+        likeCount: avenger.likeCount,
+        avengerName: avenger.name,
+        movies: avenger.movies,
+      };
+    });
+    this.setState({ allAvengers: avengers });
   }
 }
 

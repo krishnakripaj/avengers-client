@@ -6,17 +6,20 @@ class Avenger extends Component {
     return (
       <React.Fragment>
         <div className="card" style={{ width: "18rem" }}>
-          <img
-            src="https://p1.hiclipart.com/preview/707/869/118/the-a-avengers-logo-png-clipart.jpg"
-            className="card-img-top"
-          />
+          <img src={this.props.avenger.imgUrl} className="card-img-top" />
           <div className="card-body">
-            <h5 className="card-title">{this.props.avengerName}</h5>
-            <p className="card-text">
-              <ul>Show the movies here...</ul>
-            </p>
-            <button className="btn btn-primary">
-              Like - {this.props.likeCount}
+            <h5 className="card-title">{this.props.avenger.avengerName}</h5>
+            <p className="card-text">{this.props.avenger.birthName}</p>
+            <ul>
+              {this.props.avenger.movies.map((movie, index) => (
+                <li key={index}>{movie}</li>
+              ))}
+            </ul>
+            <button className="btn btn-primary" onClick={this.props.onLike}>
+              Like - {this.props.avenger.likeCount}
+            </button>{" "}
+            <button className="btn btn-danger" onClick={this.props.onDelete}>
+              Delete
             </button>
           </div>
         </div>
