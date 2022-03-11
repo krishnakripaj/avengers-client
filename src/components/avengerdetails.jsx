@@ -13,7 +13,7 @@ function Avengerdetails() {
     <React.Fragment>
       <h1>Avenger Details</h1>
       <h2>Avenger Id: {params.avengerId} </h2>
-      <button onClick={goHome}>Go Back</button>
+      <button onClick={goHome}>Go To Avengers Page</button>
     </React.Fragment>
   );
 }
