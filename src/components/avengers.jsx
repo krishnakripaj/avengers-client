@@ -46,7 +46,12 @@ class Avengers extends Component {
       (avenger) => avenger.id !== avengerId
     );
 
-    await axios.delete(`http://localhost:5000/api/avengers/${avengerId}`);
+    await axios.delete(`http://localhost:5000/api/avengers/${avengerId}`, {
+      headers: {
+        "x-jwt-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMjhhOGFmNTYyYTM1ZjI1ODUxMmUxZCIsInVzZXJuYW1lIjoia3JpcGFqIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjQ3MDAyNDU5LCJleHAiOjE2NDcwMzg0NTl9.UAuHbQhBYWADwR0gbuSdf-fzkVZ6_S85GFZ7t7V0uvc",
+      },
+    });
     this.setState({ allAvengers: updatedAvengerArray });
   }
 
